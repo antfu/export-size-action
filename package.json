@@ -1,0 +1,54 @@
+{
+  "name": "export-size-action",
+  "version": "0.0.0",
+  "description": "GitHub Actions for export-size",
+  "main": "dist/index.js",
+  "private": true,
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antfu/export-size-action/issues"
+  },
+  "homepage": "https://github.com/antfu/export-size-action#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antfu/export-size-action.git"
+  },
+  "scripts": {
+    "watch": "npm run build -- --watch",
+    "build": "ncc build src/index.ts -o dist",
+    "release": "npx bumpp --commit --push --tag",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4",
+    "@actions/github": "^4.0.0",
+    "@antfu/eslint-config-ts": "^0.4.3",
+    "@types/markdown-table": "^2.0.0",
+    "@types/node": "^14.14.6",
+    "@zeit/ncc": "^0.22.3",
+    "eslint": "^7.12.1",
+    "export-size": "^0.3.7",
+    "has-yarn": "^2.1.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
+    "markdown-table": "^2.0.0",
+    "typescript": "^4.0.5"
+  }
+}

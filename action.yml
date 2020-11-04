@@ -1,0 +1,19 @@
+name: 'export-size-action'
+description: 'GitHub Actions for export-size'
+author: 'Anthony Fu <anthonyfu117@hotmail.com>'
+branding:
+  icon: 'box'
+  color: 'black'
+inputs:
+  github_token:
+    required: true
+    description: 'a github access token'
+  build_script:
+    required: false
+    description: 'a custom npm script to build the files to check'
+  paths:
+    required: false
+    description: 'paths for check export-size, useful for monorepo. split by comma, default to `.`'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
