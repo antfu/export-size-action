@@ -1,4 +1,4 @@
-# export-size-action
+# export-size-action (WIP)
 
 Add the following action inside `.github/workflows/export-size.yml`
 

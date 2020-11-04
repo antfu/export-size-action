@@ -29,13 +29,15 @@ async function fetchPreviousComment(
 function getOptions(): Options & { token: string } {
   return {
     token: getInput('github_token'),
-    paths: getInput('paths').split(',') || ['.'],
+    paths: (getInput('paths') || '.').split(','),
     buildScript: getInput('build_script') || 'npm run build',
   }
 }
 
 async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
   const { token, ...options } = getOptions()
+
+  console.log('Options', options)
 
   const octokit = getOctokit(token)
 
@@ -88,7 +90,8 @@ async function run() {
       await compareToRef('HEAD^')
   }
   catch (error) {
-    setFailed(error.message)
+    console.error(error)
+    setFailed(error)
   }
 }
 

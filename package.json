@@ -16,7 +16,7 @@
   },
   "scripts": {
     "watch": "npm run build -- --watch",
-    "build": "ncc build src/index.ts -o dist",
+    "build": "ncc build src/index.ts -o dist -s",
     "release": "npx bumpp --commit --push --tag",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix"
@@ -44,7 +44,7 @@
     "@types/node": "^14.14.6",
     "@zeit/ncc": "^0.22.3",
     "eslint": "^7.12.1",
-    "export-size": "^0.3.7",
+    "export-size": "^0.3.8",
     "has-yarn": "^2.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
