@@ -51,6 +51,8 @@ export async function buildAndGetSize(branch: string | null, options: Options) {
     }
   }
 
+  console.log(exports)
+
   return result
 }
 
