@@ -1,7 +1,7 @@
+import fs from 'fs'
 import { exec } from '@actions/exec'
 import { getExportsSize } from 'export-size'
 import readableSize from 'filesize'
-import hasYarn from 'has-yarn'
 import table from 'markdown-table'
 import { Options } from './types'
 
@@ -9,8 +9,6 @@ type Awaited<T> = T extends Promise<infer A> ? A : never
 type Packages = Awaited<ReturnType<typeof getExportsSize>>[]
 
 export async function buildAndGetSize(branch: string | null, options: Options): Promise<Packages> {
-  console.log('CWD', process.cwd())
-
   if (branch) {
     try {
       await exec(`git fetch origin ${branch} --depth=1`)
@@ -22,7 +20,11 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
     await exec(`git checkout -f ${branch}`)
   }
 
-  const pm = hasYarn() ? 'yarn' : 'npm'
+  const pm = fs.existsSync('yarn.lock')
+    ? 'yarn'
+    : fs.existsSync('pnpm-lock.yaml')
+      ? 'pnpm'
+      : 'npm'
 
   await exec(`${pm} install`, [], { silent: true })
 
@@ -37,8 +39,6 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
         pkg: path,
         bundler: 'rollup',
       })
-
-      console.log('Exports', size.exports)
 
       return size
     }),
@@ -126,6 +126,8 @@ export function formatCompareTable(base: Packages, current: Packages): string {
 
   if (unchangedBody)
     unchangedBody = `\n<details><summary>Unchanged</summary>\n\n${unchangedBody}\n\n</details>`
+
+  console.log(body)
 
   return `${body}\n${unchangedBody}`
 }

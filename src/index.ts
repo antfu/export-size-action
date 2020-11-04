@@ -9,7 +9,7 @@ type GitHub = ReturnType<typeof getOctokit>
 type Repo = Context['repo']
 type Pull = WebhookPayload['pull_request']
 
-const COMMNET_HEADING = '## Export Size'
+const COMMNET_HEADING = '## [Export Size](https://github.com/antfu/export-size)'
 
 async function fetchPreviousComment(
   octokit: GitHub,
@@ -46,11 +46,7 @@ async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
   const base = await buildAndGetSize(null, options)
   const current = await buildAndGetSize(ref, options)
 
-  const mdTable = formatCompareTable(base, current)
-
-  console.log(mdTable)
-
-  body += mdTable
+  body += formatCompareTable(base, current)
 
   if (pr && repo) {
     const comment = await fetchPreviousComment(octokit, repo, pr)
@@ -72,7 +68,8 @@ async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
       }
     }
     catch (error) {
-      console.log(
+      console.error(error)
+      setFailed(
         'Error creating/updating comment. This can happen for PR\'s originating from a fork without write permissions.',
       )
     }
@@ -85,7 +82,6 @@ async function run() {
   try {
     if (pr)
       await compareToRef(pr.base.ref as string, pr, context.repo)
-
     else
       await compareToRef('HEAD^')
   }
