@@ -26,9 +26,9 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
       ? 'pnpm'
       : 'npm'
 
-  await exec(`${pm} install`, [], { silent: true })
+  await exec(`${pm} install`)
 
-  await exec(options.buildScript, [], { silent: true })
+  await exec(options.buildScript)
 
   return await Promise.all(
     options.paths.map(async(path) => {
