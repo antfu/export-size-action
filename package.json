@@ -1,6 +1,6 @@
 {
   "name": "export-size-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GitHub Actions for export-size",
   "main": "dist/index.js",
   "private": true,
