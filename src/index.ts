@@ -71,7 +71,7 @@ async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
     }
     catch (error) {
       console.error(error)
-      setFailed(
+      console.error(
         'Error creating/updating comment. This can happen for PR\'s originating from a fork without write permissions.',
       )
     }
