@@ -8,6 +8,9 @@ inputs:
   github_token:
     required: true
     description: 'a github access token'
+  comment_token:
+    required: false
+    description: 'a github access token for commenting'
   build_script:
     required: false
     description: 'a custom npm script to build the files to check'

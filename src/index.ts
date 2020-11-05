@@ -26,16 +26,17 @@ async function fetchPreviousComment(
   return commnets.find(comment => comment.body.startsWith(COMMNET_HEADING))
 }
 
-function getOptions(): Options & { token: string } {
+function getOptions(): Options & { token: string; commentToken: string } {
   return {
     token: getInput('github_token'),
+    commentToken: getInput('comment_token'),
     paths: (getInput('paths') || '.').split(','),
     buildScript: getInput('build_script') || 'npm run build',
   }
 }
 
 async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
-  const { token, ...options } = getOptions()
+  const { token, commentToken, ...options } = getOptions()
 
   console.log('Options', options)
 
@@ -50,17 +51,18 @@ async function compareToRef(ref: string, pr?: Pull, repo?: Repo) {
 
   if (pr && repo) {
     const comment = await fetchPreviousComment(octokit, repo, pr)
+    const commentter = commentToken ? getOctokit(commentToken) : octokit
 
     try {
       if (!comment) {
-        await octokit.issues.createComment({
+        await commentter.issues.createComment({
           ...repo,
           issue_number: pr.number,
           body,
         })
       }
       else {
-        await octokit.issues.updateComment({
+        await commentter.issues.updateComment({
           ...repo,
           comment_id: comment.id,
           body,
