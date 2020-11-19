@@ -28,8 +28,8 @@ jobs:
   size:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: antfu/export-size-action@v1
+      - uses: actions/checkout@v2
+      - uses: antfu/export-size-action@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -37,7 +37,7 @@ jobs:
 #### Monorepo
 
 ```yaml
-  - uses: antfu/export-size-action@v1
+  - uses: antfu/export-size-action@v1.0.0
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       paths: package/core,package/foo
