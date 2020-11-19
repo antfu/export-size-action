@@ -37,7 +37,7 @@ jobs:
 #### Monorepo
 
 ```yaml
-  - uses: antfu/export-size-action@v1.0.0
+  - uses: antfu/export-size-action@v1
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       paths: package/core,package/foo
