@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { exec } from '@actions/exec'
 import { getExportsSize } from 'export-size'
 import readableSize from 'filesize'
@@ -20,13 +19,7 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
     await exec(`git checkout -f ${branch}`)
   }
 
-  const pm = fs.existsSync('yarn.lock')
-    ? 'yarn'
-    : fs.existsSync('pnpm-lock.yaml')
-      ? 'pnpm'
-      : 'npm'
-
-  await exec(`${pm} install`)
+  await exec('npx -p @antfu/ni nci')
 
   await exec(options.buildScript)
 
