@@ -32,6 +32,7 @@ function getOptions(): Options & { token: string; commentToken: string } {
     commentToken: getInput('comment_token'),
     paths: (getInput('paths') || '.').split(','),
     buildScript: getInput('build_script') || 'npm run build',
+    bundler: getInput('bundler') || 'rollup',
   }
 }
 

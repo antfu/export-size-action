@@ -17,6 +17,9 @@ inputs:
   paths:
     required: false
     description: 'paths for check export-size, useful for monorepo. split by comma, default to `.`'
+  bundler:
+    required: false
+    description: 'define the bundler to be used by export-size, can be `esbuild` or `rollup`, default to `rollup`'
 runs:
   using: 'node12'
   main: 'dist/index.js'

@@ -30,7 +30,7 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
 
       const size = await getExportsSize({
         pkg: path,
-        bundler: 'rollup',
+        bundler: options.bundler,
       })
 
       return size
