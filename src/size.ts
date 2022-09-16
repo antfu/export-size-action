@@ -13,7 +13,7 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
       await exec(`git fetch origin ${branch} --depth=1`)
     }
     catch (error) {
-      console.log('Fetch failed', error.message)
+      console.log('Fetch failed', (error as Error).message)
     }
 
     await exec(`git checkout -f ${branch}`)

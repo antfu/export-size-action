@@ -15,8 +15,10 @@
     "url": "git+https://github.com/antfu/export-size-action.git"
   },
   "scripts": {
-    "watch": "npm run build -- --watch",
-    "build": "ncc build src/index.ts -o dist -s",
+    "watch": "npm run build:bundle -- --watch",
+    "build": "npm run build:bundle && npm run build:cp-esbuild",
+    "build:bundle": "ncc build src/index.ts -o dist -s -e esbuild",
+    "build:cp-esbuild": "rsync -avh --delete ./node_modules/esbuild-wasm/ ./dist/node_modules/esbuild/",
     "release": "npx bumpp --commit --push --tag",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix"
@@ -44,11 +46,14 @@
     "@types/node": "^14.14.6",
     "@zeit/ncc": "^0.22.3",
     "eslint": "^7.12.1",
-    "export-size": "^0.3.8",
+    "export-size": "^0.5.2",
     "has-yarn": "^2.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "markdown-table": "^2.0.0",
     "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "esbuild-wasm": "^0.15.8"
   }
 }
