@@ -28,6 +28,7 @@ runs:
   # @see https://github.com/orgs/community/discussions/53217#discussioncomment-6227341
   using: composite
   steps:
+    - uses: actions/checkout@v2
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
