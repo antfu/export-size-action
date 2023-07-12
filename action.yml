@@ -36,3 +36,9 @@ runs:
       id: action
       run: node ${{ github.action_path }}/dist/index.js
       shell: ${{ (runner.os == 'Windows' && 'pwsh') || 'bash' }}
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+        INPUT_COMMENT_TOKEN: ${{ inputs.comment_token }}
+        INPUT_BUILD_SCRIPT: ${{ inputs.build_script }}
+        INPUT_PATHS: ${{ inputs.paths }}
+        INPUT_BUNDLER: ${{ inputs.bundler }}
