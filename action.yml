@@ -20,6 +20,19 @@ inputs:
   bundler:
     required: false
     description: 'define the bundler to be used by export-size, can be `esbuild` or `rollup`, default to `rollup`'
+  node-version:
+    description: Node version
+    required: false
+    default: '18'
 runs:
-  using: 'node18'
-  main: 'dist/index.js'
+  # @see https://github.com/orgs/community/discussions/53217#discussioncomment-6227341
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version || '18' }}
+    - name: Action
+      id: action
+      run: node ${{ github.action_path }}/dist/index.js
+      shell: ${{ (runner.os == 'Windows' && 'pwsh') || 'bash' }}
