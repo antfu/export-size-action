@@ -19,7 +19,7 @@ export async function buildAndGetSize(branch: string | null, options: Options): 
     await exec(`git checkout -f ${branch}`)
   }
 
-  await exec('npx -p @antfu/ni nci')
+  await exec('npx -p @antfu/ni ni')
 
   await exec(options.buildScript)
 
