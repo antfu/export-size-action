@@ -42,3 +42,14 @@ jobs:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       paths: package/core,package/foo
 ```
+
+#### Bundler
+
+Use [esbuild](https://github.com/evanw/esbuild) as the bundler:
+
+```yaml
+  - uses: antfu/export-size-action@v1
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      bundler: esbuild
+```
